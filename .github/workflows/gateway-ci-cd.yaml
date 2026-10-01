@@ -21,5 +21,6 @@ jobs:
     with:
       DOCKER_IMAGE_NAME: equalitytech/i27-gateway-ms
       DOCKERHUB_USERNAME: ${{vars.DOCKERHUB_USERNAME}}
+      environment: ${{ github.event.inputs.deploy_environment }}
     secrets:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
