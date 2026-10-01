@@ -2,6 +2,16 @@
 name: gateway-ms-ci-cd
 on:
   workflow_dispatch:
+    inputs:
+      deploy_environment:
+        description: Environment to deploy
+        type: choice
+        required: true
+        default: dev
+        options:
+          - dev
+          - test
+          - prod
 
 jobs:
   
@@ -9,7 +19,7 @@ jobs:
     name: node test build push
     uses: equality-tech/i27-helpdesk-devops/.github/workflows/wf-reuse-node.yaml@main
     with:
-      DOCKER_IMAGE_NAME: equalitytech/i27-gateway-ms
+      DOCKER_IMAGE_NAME: equalitytech/${{ inputs.deploy_environment }}.i27-gateway-ms
       DOCKERHUB_USERNAME: ${{vars.DOCKERHUB_USERNAME}}
     secrets:
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}      
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}   
